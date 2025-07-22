@@ -1,0 +1,14 @@
+### Create message
+POST http://localhost:3000/message
+content-type: application/json
+
+{
+  "message": "hello"
+}
+
+
+### Get messages
+GET http://localhost:3000/message
+
+### Get message by ID
+GET http://localhost:3000/message/121111
