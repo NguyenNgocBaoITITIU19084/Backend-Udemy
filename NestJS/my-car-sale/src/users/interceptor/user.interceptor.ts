@@ -13,7 +13,7 @@ export class UserInterceptor implements NestInterceptor {
 
     if(userId) {
       const user = await this.usersService.findOne(userId);
-      request.user = user[0].id; // Assuming findOne returns an array
+      request.user = user[0]?.id; // Assuming findOne returns an array
     }
 
     return next.handle();
