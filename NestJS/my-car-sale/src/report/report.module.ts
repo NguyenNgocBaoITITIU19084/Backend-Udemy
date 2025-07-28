@@ -8,7 +8,6 @@ import { Report } from './report.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Report])],
-  
   controllers: [ReportController],
   providers: [ReportService]
 })

@@ -24,7 +24,7 @@ import {Report} from "./report/report.entity"
         database: configService.get<string>('DB_NAME'),
         entities: [Users, Report],
         synchronize: true,
-        logging: true,
+        // logging: true,
       }),
     }),
     // TypeOrmModule.forRoot({
