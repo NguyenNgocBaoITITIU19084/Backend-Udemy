@@ -7,12 +7,13 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ResponseUserDTO } from './dto/response-user.dto';
+import { IUserResponse } from './types/userReponse.interface';
 
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) private readonly repo: Repository<User>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<ResponseUserDTO> {
+  async create(createUserDto: CreateUserDto): Promise<IUserResponse> {
     const existingUser = await this.repo.findOneBy({email: createUserDto.email})
 
     if(existingUser){
@@ -42,9 +43,12 @@ export class UserService {
     return `This action removes a #${id} user`;
   }
 
-  generateResponseUser(user: User): any {
+  generateResponseUser(user: User):IUserResponse {
     return {
-      user,
+      user: {
+        ...user,
+        token: ''
+      }
     }
   }
 }
