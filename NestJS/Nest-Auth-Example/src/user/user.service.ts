@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { UserEntity } from './entity/user.entity';
 import { CreateUserDto } from "./dto/create-user.dto"
-import { ResponseUserDto } from './dto/response-user.dto'
+
 
 import { hashAsync } from '../utils/hashString'
 
@@ -12,10 +12,10 @@ import { hashAsync } from '../utils/hashString'
 export class UserService {
   constructor(@InjectRepository(UserEntity) private readonly repo: Repository<UserEntity>) {}
 
-  async create(userInput: CreateUserDto) {
+  async create(userInput: CreateUserDto): Promise<UserEntity> {
     
     const { username, password } = userInput
-    const existingUser = await this.repo.findOneBy({ username })
+    const existingUser = await this.validateUser(username)
 
     if(existingUser) {
       throw new BadRequestException("Username is in used")
@@ -27,5 +27,10 @@ export class UserService {
     const userInstance = this.repo.create({username, password: hashedPassword})
 
     return await this.repo.save(userInstance)
+  }
+
+  async validateUser(username: string) {
+    const existingUser = await this.repo.findOneBy({ username })
+    return existingUser
   }
 }

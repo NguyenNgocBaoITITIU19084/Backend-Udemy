@@ -7,4 +7,10 @@ export class ResponseLoginDto {
 
   @Expose()
   username: string;
+
+  @Expose()
+  token: string
+
+  @Expose()
+  access_token: string
 }
