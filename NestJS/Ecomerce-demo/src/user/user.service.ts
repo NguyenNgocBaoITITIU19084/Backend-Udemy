@@ -1,13 +1,15 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
+import {sign} from 'jsonwebtoken'
+import * as bcrypt from 'bcryptjs'
 
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ResponseUserDTO } from './dto/response-user.dto';
 import { IUserResponse } from './types/userReponse.interface';
+import { CreateLoginDTO } from './dto/login-user.dto';
 
 @Injectable()
 export class UserService {
@@ -27,6 +29,21 @@ export class UserService {
     return await this.generateResponseUser(user)
   }
 
+  async login(input: CreateLoginDTO) {
+    const existingUser = await this.repo.findOneBy({email: input.email})
+
+    if(!existingUser) {
+      throw new UnauthorizedException("wrong email or password 1")
+    }
+
+    const isValidPassword = await bcrypt.compare(input.password, existingUser.password)
+
+    if(!isValidPassword){
+      throw new UnauthorizedException("wrong email or password 2")
+    }
+    return this.generateResponseUser(existingUser)
+  }
+
   findAll() {
     return `This action returns all user`;
   }
@@ -43,11 +60,20 @@ export class UserService {
     return `This action removes a #${id} user`;
   }
 
-  generateResponseUser(user: User):IUserResponse {
+   generatedToken(user: User): string {
+    const generatedToken =  sign({
+      id: user.id,
+      email: user.email,
+    }, process.env.SECRECT_KEY)
+
+    return generatedToken 
+  }
+
+   generateResponseUser(user: User):IUserResponse {
     return {
       user: {
         ...user,
-        token: ''
+        token:  this.generatedToken(user)
       }
     }
   }
