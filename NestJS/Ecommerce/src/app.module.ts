@@ -4,10 +4,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UserModule } from './user/user.module';
+
+import { User } from './user/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: '.env' }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -17,10 +21,13 @@ import { AppService } from './app.service';
       username: configService.get('DB_USERNAME'),
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_DATABASE'),
-      entities: [],
+      entities: [User],
       synchronize: true,
+      logging: true
     }),
-    inject: [ConfigService]})
+    inject: [ConfigService]}),
+    UserModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
