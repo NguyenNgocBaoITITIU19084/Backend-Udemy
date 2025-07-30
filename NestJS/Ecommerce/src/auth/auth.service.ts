@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from 'src/user/user.service';
@@ -6,43 +6,38 @@ import { UserService } from 'src/user/user.service';
 import { SignInAuthDto } from './dto/sign-in-auth.dto';
 import { SignUpAuthDto } from './dto/sign-up-auth.dto';
 
+import { compareAsync } from 'src/utils/hash';
+import { generateJWT } from '../utils/jwt'
+
 @Injectable()
 export class AuthService {
   constructor( private usersService: UserService, private jwtService: JwtService ) {}
-  async signUp(createAuthDto: SignUpAuthDto) {
+  async signUp(signUpDto: SignUpAuthDto) {
     // 1 create a user
     // 2 hash password
     // 3 save to db
 
-    const existingUser = await this.usersService.findOne(createAuthDto.username)
+    const existingUser = await this.usersService.findOne(signUpDto.username)
 
-    if(existingUser) {
-      throw new BadRequestException("email is in use")
-    }
+    if(existingUser) throw new BadRequestException("email is in use")
 
-    const user = await this.usersService.create(createAuthDto)
+    const user = await this.usersService.create(signUpDto)
     // generate access token 
 
-    const payload = { sub: user.id, username: user.username };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
-
+    return await generateJWT(user.id, user.username, this.jwtService) 
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async signIn(signInDto: SignInAuthDto) {
+    const existingUser = await this.usersService.findOne(signInDto.username)
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    // find user
+    if(!existingUser) throw new UnauthorizedException()
 
-  update(id: number, updateAuthDto: SignInAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    // compare password
+    const isValidPassword = await compareAsync(signInDto.password, existingUser.password)
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    if(!isValidPassword) throw new UnauthorizedException()
+
+    return await generateJWT(existingUser.id, existingUser.username, this.jwtService) 
   }
 }

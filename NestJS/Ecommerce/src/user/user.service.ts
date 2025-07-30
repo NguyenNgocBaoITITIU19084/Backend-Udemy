@@ -1,12 +1,13 @@
-import * as bcrypt from 'bcrypt';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 import { User } from './entities/user.entity';
+
+import { hashAsync } from "../utils/hash";
 
 @Injectable()
 export class UserService {
@@ -14,8 +15,7 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     const user = new User()
 
-    const saltOrRounds = 10;
-    const hashedPassword = await bcrypt.hash(createUserDto.password, saltOrRounds);  
+    const hashedPassword = await hashAsync(createUserDto.password)
 
     Object.assign(user, {...createUserDto, password: hashedPassword})
 
