@@ -1,0 +1,26 @@
+### create a new role
+POST http://localhost:3000/role
+Content-Type: application/json
+
+{
+  "name": "user",
+  "description": "User have a partial permission of the application"
+}
+
+### Get role by name
+GET http://localhost:3000/role/admin
+
+
+### Get all roles in application
+GET http://localhost:3000/role
+
+### update description file of role
+PATCH http://localhost:3000/role/admin
+Content-Type: application/json
+
+{
+  "description": "User have a full permission of the application"
+}
+
+### remove role in application
+DELETE  http://localhost:3000/role/admin

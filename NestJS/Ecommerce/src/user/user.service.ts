@@ -8,16 +8,23 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 import { hashAsync } from "../utils/hash";
+import { RoleService } from 'src/role/role.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private readonly repo: Repository<User>) {}
+  constructor(
+    @InjectRepository(User) private readonly repo: Repository<User>,
+    private readonly roleService: RoleService
+  ) {}
+
   async create(createUserDto: CreateUserDto) {
+    const role = await this.roleService.findOne('user')
+
     const user = new User()
 
     const hashedPassword = await hashAsync(createUserDto.password)
 
-    Object.assign(user, {...createUserDto, password: hashedPassword})
+    Object.assign(user, {...createUserDto, password: hashedPassword, role})
 
     return await this.repo.save(user)
   }

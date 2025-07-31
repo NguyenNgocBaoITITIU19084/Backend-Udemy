@@ -1,0 +1,2 @@
+POST http://localhost:3000/user/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGVzdDFAZ21haWwuY29tIiwiaWF0IjoxNzUzOTQxMTk3LCJleHAiOjE3NTQwMjc1OTd9.Tg0qlV_WsThprKsIUdUqiw-jz86H055Me3XS5cZ1hLU

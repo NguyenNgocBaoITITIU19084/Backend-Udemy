@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
+
+import { Role } from 'src/role/entities/role.entity';
 
 @Entity()
 export class User {
@@ -17,6 +19,18 @@ export class User {
   @Column()
   password: string
 
-  @Column({ default: false })
+  @Column({ default: true })
   isActive: boolean;
+
+  @ManyToOne(() => Role, (role) => role.users )
+  role: Role
+  
+  @CreateDateColumn()
+  createdAt: Date
+
+  @DeleteDateColumn()
+  deletedAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
 }
