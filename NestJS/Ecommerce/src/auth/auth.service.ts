@@ -6,8 +6,8 @@ import { UserService } from 'src/user/user.service';
 import { SignInAuthDto } from './dto/sign-in-auth.dto';
 import { SignUpAuthDto } from './dto/sign-up-auth.dto';
 
-import { compareAsync } from 'src/utils/hash';
-import { generateJWT } from '../utils/jwt'
+import { compareAsync } from 'src/_utils/hash';
+import { generateJWT } from '../_utils/jwt'
 
 @Injectable()
 export class AuthService {

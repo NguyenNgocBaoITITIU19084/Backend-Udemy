@@ -1,0 +1,11 @@
+### Get all endpoints
+GET http://localhost:3000/endpoint/all
+
+### Create EndPoint
+POST http://localhost:3000/endpoint
+Content-Type: application/json
+
+{
+  "url": "/example",
+  "method": "POST"
+}

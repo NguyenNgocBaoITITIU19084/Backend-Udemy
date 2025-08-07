@@ -7,7 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 import { User } from './entities/user.entity';
 
-import { hashAsync } from "../utils/hash";
+import { hashAsync } from "../_utils/hash";
 import { RoleService } from 'src/role/role.service';
 
 @Injectable()

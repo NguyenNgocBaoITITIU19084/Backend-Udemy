@@ -1,0 +1,8 @@
+POST http://localhost:3000/permission/isAllow
+Content-Type: application/json
+
+{
+  "role_name": "user",
+  "endpoint_id": 1,
+  "isAllow": true
+}

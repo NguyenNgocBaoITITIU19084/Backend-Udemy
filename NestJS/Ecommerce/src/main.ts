@@ -2,7 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DataSource } from 'typeorm';
 import { AppModule } from './app.module';
-import { getEndPoint } from './utils/get-endpoint';
+import { getEndPoint } from './_utils/get-endpoint';
 import { Role } from './role/entities/role.entity';
 import { Endpoint } from './endpoint/entities/endpoint.entity';
 
