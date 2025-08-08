@@ -1,4 +1,4 @@
-POST http://localhost:3000/permission/isAllow
+POST http://localhost:3000/permission/allow
 Content-Type: application/json
 
 {

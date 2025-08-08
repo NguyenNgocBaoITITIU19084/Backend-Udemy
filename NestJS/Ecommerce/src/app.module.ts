@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { EndpointModule } from './endpoint/endpoint.module';
 import { PermissionModule } from './permission/permission.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { PermissionModule } from './permission/permission.module';
     AuthModule,
     RoleModule,
     EndpointModule,
-    PermissionModule
+    PermissionModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

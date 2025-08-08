@@ -1,6 +1,8 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
 import { DataSource } from 'typeorm';
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
 import { getEndPoint } from './_utils/get-endpoint';
 import { Role } from './role/entities/role.entity';
@@ -10,6 +12,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
+
+  const config = new DocumentBuilder()
+    .setTitle('eCommerce APIs')
+    .setDescription('The eCommerce API description')
+    .setVersion('1.0')
+    .addTag('eCommerce')
+    .build();
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, documentFactory);
 
   await app.listen(process.env.PORT ?? 3000);
 
