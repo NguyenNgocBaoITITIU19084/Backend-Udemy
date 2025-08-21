@@ -63,7 +63,8 @@ Just a quick note: If you don't always want to copy and use the full path, you c
 
 macOS / Linux: -v $(pwd):/app
 
-Windows: -v "%cd%":/app
+Windows: -v "$(pwd)":/app
+-> docker run -p 3000:80 -v "$(pwd):/app" -v /app/node_modules -v feedback:/app/feedback feedback-app
 
 Udemy lecture for Bind mount with docker link: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/learn/lecture/22166914#notes
  

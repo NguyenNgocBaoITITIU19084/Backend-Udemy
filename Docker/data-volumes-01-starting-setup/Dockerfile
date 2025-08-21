@@ -15,4 +15,4 @@ EXPOSE 80
 # this is anonymous volume, it will be remove when container was removed, and anonymous volume was managed by docker
 # VOLUME [ "/app/feedback" ] 
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "dev" ]
