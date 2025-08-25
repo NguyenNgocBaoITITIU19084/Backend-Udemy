@@ -1,4 +1,6 @@
 @url = http://localhost:3000/api/v1/auth
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc1NjA5NjA1NiwiZXhwIjoxNzU2MDk5NjU2fQ.TKQQegMPWGSL0iR30oi9MP6Lfw4nqvJWiZ15gnSHrAw
+@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc1NjA5NzU2MiwiZXhwIjoxNzU2NzAyMzYyfQ.A8WiLQ4MzPzwcnTNEIbQrPKgMBrQUc4Iu80BQl7CgwI
 
 POST {{url}}/login
 Content-Type: application/json
@@ -8,3 +10,23 @@ Content-Type: application/json
   "password": "changeme"
 }
 
+###logout
+POST {{url}}/logout
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+###refresh token
+POST {{url}}/refresh-token
+Content-Type: application/json
+Authorization: Bearer {{refresh_token}}
+
+###register account
+POST {{url}}/register
+Content-Type: application/json
+
+{
+  "username": "test2@test.com",
+  "password": "changeme",
+  "firstName": "Test",
+  "lastName": "User"
+}

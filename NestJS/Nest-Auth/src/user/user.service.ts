@@ -1,5 +1,5 @@
-import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { Not, Repository } from 'typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -22,12 +22,25 @@ export class UserService {
     return await this.repo.findOne({ where: { username } });
   }
 
+  async updateRefreshToken(userId: number, hashedRefreshToken: string) {
+    return await this.repo.createQueryBuilder().update(User).set({ hashedRefreshToken }).where("id = :id", { id: userId }).execute();
+  }
+
+  async removeRefreshToken(userId: number) {
+    return await this.repo.createQueryBuilder().update(User).set({ hashedRefreshToken: "" }).where("id = :id", { id: userId }).execute();
+  }
+
   findAll() {
     return `This action returns all user`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(userId: number) {
+    const user = this.repo.findOne({ where: { id: userId }, select: ['id', 'username', 'firstName', 'lastName', 'hashedRefreshToken', 'isActive', 'createdAt', 'updatedAt', 'deletedAt'] });
+
+    if (!user) throw new NotFoundException('User not found');
+
+    return user;
+
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
