@@ -1,5 +1,5 @@
 @url = http://localhost:3000/api/v1/auth
-@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc1NjA5NjA1NiwiZXhwIjoxNzU2MDk5NjU2fQ.TKQQegMPWGSL0iR30oi9MP6Lfw4nqvJWiZ15gnSHrAw
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoidGVzdEB0ZXN0LmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU2MTAxNDY4LCJleHAiOjE3NTYxMDUwNjh9.EKsmT-qrRPAm_-y7aSxkLoA6Ctlhhs8zIeFKrStnl6w
 @refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc1NjA5NzU2MiwiZXhwIjoxNzU2NzAyMzYyfQ.A8WiLQ4MzPzwcnTNEIbQrPKgMBrQUc4Iu80BQl7CgwI
 
 POST {{url}}/login

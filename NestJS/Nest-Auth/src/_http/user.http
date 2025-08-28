@@ -1,5 +1,6 @@
 @url = http://localhost:3000/api/v1/user
-
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoidGVzdEB0ZXN0LmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU2MTAxNDY4LCJleHAiOjE3NTYxMDUwNjh9.EKsmT-qrRPAm_-y7aSxkLoA6Ctlhhs8zIeFKrStnl6w
+@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc1NjA5NzU2MiwiZXhwIjoxNzU2NzAyMzYyfQ.A8WiLQ4MzPzwcnTNEIbQrPKgMBrQUc4Iu80BQl7CgwI
 POST {{url}}
 Content-Type: application/json
 
@@ -9,3 +10,9 @@ Content-Type: application/json
   "username": "test@test.com",
   "password": "changeme"
 }
+
+### delete user
+DELETE {{url}}/1
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+

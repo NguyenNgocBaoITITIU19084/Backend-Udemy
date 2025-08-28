@@ -35,7 +35,7 @@ export class UserService {
   }
 
   findOne(userId: number) {
-    const user = this.repo.findOne({ where: { id: userId }, select: ['id', 'username', 'firstName', 'lastName', 'hashedRefreshToken', 'isActive', 'createdAt', 'updatedAt', 'deletedAt'] });
+    const user = this.repo.findOne({ where: { id: userId }, select: ['id', 'username', 'firstName', 'lastName', 'role','hashedRefreshToken', 'isActive', 'createdAt', 'updatedAt', 'deletedAt'] });
 
     if (!user) throw new NotFoundException('User not found');
 

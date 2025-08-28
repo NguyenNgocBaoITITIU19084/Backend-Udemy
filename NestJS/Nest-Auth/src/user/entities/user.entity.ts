@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, DeleteDateColumn, UpdateDateColumn, BeforeInsert } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
+import { ROLES } from 'src/auth/enums/roles.enums';
 
 @Entity()
 export class User {
@@ -24,6 +25,13 @@ export class User {
 
   @Column({ nullable: true })
   hashedRefreshToken: string;
+
+  @Column({
+    enum: ROLES,
+    type: 'enum', 
+    default: ROLES.USER
+  })
+  role: ROLES;
 
   @BeforeInsert()
   async hashPassword() {

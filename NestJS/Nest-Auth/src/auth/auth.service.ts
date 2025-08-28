@@ -28,7 +28,16 @@ export class AuthService {
   }
 
   async login(userId: number) {
-    const {access_token, refresh_token} = await this.generateToken(userId);
+
+    const user = await this.userService.findOne(userId);
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const extendPayload = { username: user.username, role: user.role };
+
+    const {access_token, refresh_token} = await this.generateToken(userId, extendPayload);
     
     const hashedRefreshToken = await argon.hash(refresh_token);
 
@@ -62,7 +71,15 @@ export class AuthService {
   }
 
   async refreshToken(userId: number) {
-    const {access_token, refresh_token} = await this.generateToken(userId);
+    const user = await this.userService.findOne(userId);
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const extendPayload = { username: user.username, role: user.role };
+
+    const {access_token, refresh_token} = await this.generateToken(userId, extendPayload);
     
     const hashedRefreshToken = await argon.hash(refresh_token);
 
@@ -71,9 +88,10 @@ export class AuthService {
     return {access_token, refresh_token};
   }
 
-  async generateToken(userId: number) {
+  async generateToken(userId: number, extendPayload = {}) {
+    
     const payload = { sub: userId };
-    const access_token =  await this.jwtService.signAsync(payload);
+    const access_token =  await this.jwtService.signAsync({...payload, ...extendPayload});
     const refresh_token = await this.jwtService.signAsync(payload, this.refreshJwtOptions);
     return {access_token, refresh_token}
   }
