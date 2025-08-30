@@ -8,9 +8,13 @@ import Divider from '@mui/material/Divider'
 import axios from 'axios'
 import authorizedAxios from '~/utils/authorizedAxios'
 import { API_ROOT } from '~/utils/constants'
+import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
+import { handleLogoutAPI } from '~/apis'
 
 function Dashboard() {
   const [user, setUser] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +25,39 @@ function Dashboard() {
     }
     fetchData()
   }, [])
+   useEffect(() => {
+    const fetchData = async () => {
+      const userInforFromLocalStorage = JSON.parse(localStorage.getItem('userInfor'))
+      const res = await authorizedAxios.get(`${API_ROOT}/v1/dashboards/access`)
+      console.log(res.data)
+      setUser(res.data)
+    }
+    fetchData()
+  }, [])
+   useEffect(() => {
+    const fetchData = async () => {
+      const userInforFromLocalStorage = JSON.parse(localStorage.getItem('userInfor'))
+      const res = await authorizedAxios.get(`${API_ROOT}/v1/dashboards/access`)
+      console.log(res.data)
+      setUser(res.data)
+    }
+    fetchData()
+  }, [])
+   useEffect(() => {
+    const fetchData = async () => {
+      const userInforFromLocalStorage = JSON.parse(localStorage.getItem('userInfor'))
+      const res = await authorizedAxios.get(`${API_ROOT}/v1/dashboards/access`)
+      console.log(res.data)
+      setUser(res.data)
+    }
+    fetchData()
+  }, [])
+
+  async function handleLogoutButton() {
+    handleLogoutAPI()
+
+    navigate('/login')
+  }
 
   if (!user) {
     return (
@@ -40,11 +77,11 @@ function Dashboard() {
 
   return (
     <Box sx={{
-      maxWidth: '1120px',
+      maxWidth: '1024px',
       marginTop: '1em',
       display: 'flex',
       justifyContent: 'center',
-      flexDirection: 'column',
+      gap: '10px',
       padding: '0 1em'
     }}>
       <Alert severity="info" sx={{ '.MuiAlert-message': { overflow: 'hidden' } }}>
@@ -52,7 +89,7 @@ function Dashboard() {
         <Typography variant="span" sx={{ fontWeight: 'bold', '&:hover': { color: '#fdba26' } }}>{user?.email}</Typography>
         &nbsp; đăng nhập thành công thì mới cho truy cập vào.
       </Alert>
-
+      <Button onClick={handleLogoutButton} sx={{ color: 'blue', maxWidth: '150px' }}>Log out</Button>
       <Divider sx={{ my: 2 }} />
     </Box>
   )

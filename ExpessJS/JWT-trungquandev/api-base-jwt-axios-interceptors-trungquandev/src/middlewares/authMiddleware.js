@@ -23,7 +23,7 @@ const authMiddleware = (req, res, next) => {
   // Nếu token hợp lệ => lưu vào req.jwtDecoded=> next()
   // Nếu token không hợp lệ => res.status(403).json({ message: 'Invalid token' })
   try {
-    const decoded = JwtProvider.verifyToken(access_token_FromCookie, process.env.JWT_PRIVATE_KEY)
+    const decoded = JwtProvider.verifyToken(access_token_FromLocal, process.env.JWT_PRIVATE_KEY)
     req.jwtDecoded = decoded
     console.log('Decoded from authMiddleware: ', decoded)
     next()

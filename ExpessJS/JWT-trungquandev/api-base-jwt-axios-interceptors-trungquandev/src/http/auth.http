@@ -1,9 +1,17 @@
-@url = http://localhost:8017/v1/users/login
+@url = http://localhost:8017/v1/users
 
-POST {{url}}
+POST {{url}}/login
 Content-Type: application/json
 
 {
   "email": "trungquandev.official@gmail.com",
   "password": "trungquandev@123"
+}
+
+### refresh token
+PUT {{url}}/refresh_token
+Content-Type:  application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRydW5ncXVhbmRldi1zYW1wbGUtaWQtMTIzNDU2NzgiLCJlbWFpbCI6InRydW5ncXVhbmRldi5vZmZpY2lhbEBnbWFpbC5jb20iLCJpYXQiOjE3NTY1MjkzMTYsImV4cCI6MTc1NzEzNDExNn0.onHDX4PdHhICEdZZovUWazBTgfcAiEuWruTZi2A2iJ8"
 }

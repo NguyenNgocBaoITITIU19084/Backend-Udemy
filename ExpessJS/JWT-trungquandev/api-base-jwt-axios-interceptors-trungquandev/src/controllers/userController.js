@@ -63,7 +63,11 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   try {
     // Do something
+    res.clearCookie('access_token')
+    res.clearCookie('refresh_token')
+
     res.status(StatusCodes.OK).json({ message: 'Logout API success!' })
+    return
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error)
   }
@@ -71,10 +75,23 @@ const logout = async (req, res) => {
 
 const refreshToken = async (req, res) => {
   try {
-    // Do something
-    res.status(StatusCodes.OK).json({ message: ' Refresh Token API success.' })
+    const { refresh_token } = req.body
+
+    if (!refresh_token) return res.status(StatusCodes.UNAUTHORIZED).json({message: 'missing refresh token' })
+
+    const refresh_token_decoded = await JwtProvider.verifyToken(refresh_token, process.env.REFRESH_JWT_EXPIRES_KEY)
+
+    const payload = {
+      id: refresh_token_decoded.id,
+      email: refresh_token_decoded.email
+    }
+
+    const access_token = await JwtProvider.generateToken(payload, process.env.JWT_PRIVATE_KEY, process.env.JWT_EXPIRES_IN)
+
+
+    res.status(StatusCodes.OK).json({ message: ' Refresh Token API success.', access_token })
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Refresh token failed' })
   }
 }
 
