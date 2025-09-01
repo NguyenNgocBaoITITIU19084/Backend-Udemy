@@ -1,0 +1,6 @@
+@url = http://localhost:8017/v1/dashboards
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRydW5ncXVhbmRldi1zYW1wbGUtaWQtMTIzNDU2NzgiLCJlbWFpbCI6InRydW5ncXVhbmRldi5vZmZpY2lhbEBnbWFpbC5jb20iLCJpYXQiOjE3NTY1NjgwNDgsImV4cCI6MTc1NjU3MTY0OH0.UWiPos2mF9vgxB4dra0F0gY-H46tHBdfHFRne3huozc
+### dashboard access
+GET {{url}}/access
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
