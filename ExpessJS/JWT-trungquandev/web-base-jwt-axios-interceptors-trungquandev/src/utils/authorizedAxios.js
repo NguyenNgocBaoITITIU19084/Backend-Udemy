@@ -90,7 +90,7 @@ authorizedAxios.interceptors.response.use(function onFulfilled(response) {
         })
     }
 
-    refreshPromise.then(() => {
+    return refreshPromise.then(() => {
     // bước cuối cùng này cực kì quan trọng: return lại axios instance của chúng ta kết hợp với cái
       // originResquest để gội lại nhưng api ban đầu nó bị lỗi
       return authorizedAxios(originRequest)
