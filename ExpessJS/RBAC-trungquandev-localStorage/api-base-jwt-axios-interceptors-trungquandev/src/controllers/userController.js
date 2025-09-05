@@ -2,25 +2,25 @@
 import { StatusCodes } from 'http-status-codes'
 import ms from 'ms'
 import JwtProvider from '~/providers/JwtProvider'
-
+import { MOCK_USER_DATABASE } from '../model/MockDatabase'
 /**
  * Mock nhanh thông tin user thay vì phải tạo Database rồi query.
  * Nếu muốn học kỹ và chuẩn chỉnh đầy đủ hơn thì xem Playlist này nhé:
  * https://www.youtube.com/playlist?list=PLP6tw4Zpj-RIMgUPYxhLBVCpaBs94D73V
  */
-const MOCK_ROLES = {
-  ADMIN: 'admin',
-  CLIENT: 'client',
-  MODERATOR: 'moderator'
-}
+// const MOCK_ROLES = {
+//   ADMIN: 'admin',
+//   CLIENT: 'client',
+//   MODERATOR: 'moderator'
+// }
 
-const MOCK_DATABASE = {
-  USER: {
-    ID: 'trungquandev-sample-id-12345678',
-    EMAIL: 'trungquandev.official@gmail.com',
-    PASSWORD: 'trungquandev@123'
-  }
-}
+// const MOCK_DATABASE = {
+//   USER: {
+//     ID: 'trungquandev-sample-id-12345678',
+//     EMAIL: 'trungquandev.official@gmail.com',
+//     PASSWORD: 'trungquandev@123'
+//   }
+// }
 
 /**
  * 2 cái chữ ký bí mật quan trọng trong dự án. Dành cho JWT - Jsonwebtokens
@@ -33,16 +33,16 @@ const MOCK_DATABASE = {
 
 const login = async (req, res) => {
   try {
-    if (req.body.email !== MOCK_DATABASE.USER.EMAIL || req.body.password !== MOCK_DATABASE.USER.PASSWORD) {
+    if (req.body.email !== MOCK_USER_DATABASE.EMAIL || req.body.password !== MOCK_USER_DATABASE.PASSWORD) {
       res.status(StatusCodes.FORBIDDEN).json({ message: 'Your email or password is incorrect!' })
       return
     }
 
     // Trường hợp nhập đúng thông tin tài khoản, tạo token và trả về cho phía Client
     const payload = {
-      id: MOCK_DATABASE.USER.ID,
-      email: MOCK_DATABASE.USER.EMAIL,
-      role: MOCK_ROLES.CLIENT
+      id: MOCK_USER_DATABASE.ID,
+      email: MOCK_USER_DATABASE.EMAIL,
+      role: MOCK_USER_DATABASE.ROLE
     }
 
     const access_token = JwtProvider.generateToken(payload, process.env.JWT_PRIVATE_KEY, process.env.JWT_PRIVATE_TIME)

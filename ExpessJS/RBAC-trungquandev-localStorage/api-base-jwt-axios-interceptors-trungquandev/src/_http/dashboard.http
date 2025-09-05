@@ -1,6 +1,16 @@
 @url = http://localhost:8017/v1/dashboards
-@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRydW5ncXVhbmRldi1zYW1wbGUtaWQtMTIzNDU2NzgiLCJlbWFpbCI6InRydW5ncXVhbmRldi5vZmZpY2lhbEBnbWFpbC5jb20iLCJyb2xlIjoiY2xpZW50IiwiaWF0IjoxNzU2OTYyMTgxLCJleHAiOjE3NTY5NjU3ODF9.1NgnfFWM2FIfZ02jdXOxYhEPMkZmi-WMFb5fuQq3-UI
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRydW5ncXVhbmRldi1zYW1wbGUtaWQtMTIzNDU2NzgiLCJlbWFpbCI6InRydW5ncXVhbmRldi5vZmZpY2lhbEBnbWFpbC5jb20iLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzU3MDU0MjAxLCJleHAiOjE3NTcwNTc4MDF9.Rx1Y4eM7FfzmqyiyG7Y1KiGi5Q-CrK2YFb_8YBD3Mlc
 ### dashboard access
 GET {{url}}/access
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+### get /message
+GET {{url}}/messages
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+### get /admin-tools
+GET {{url}}/admin-tools
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
