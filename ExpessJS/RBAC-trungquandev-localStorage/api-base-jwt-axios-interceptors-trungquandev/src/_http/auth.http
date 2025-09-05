@@ -1,0 +1,20 @@
+@url = http://localhost:8017/v1
+
+@refresh_token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRydW5ncXVhbmRldi1zYW1wbGUtaWQtMTIzNDU2NzgiLCJlbWFpbCI6InRydW5ncXVhbmRldi5vZmZpY2lhbEBnbWFpbC5jb20iLCJyb2xlIjoiY2xpZW50IiwiaWF0IjoxNzU2OTYyMzAwLCJleHAiOjE3NTgxNzE5MDB9.ciS0UiRZ2uG3jvoPN5c1eJ9Xh4uBGzHoflFkPZDRa_4"
+
+### Api login
+POST {{url}}/users/login
+Content-Type: application/json
+
+{
+  "email": "trungquandev.official@gmail.com",
+  "password": "trungquandev@123"
+}
+
+### Api refresh token API
+PUT {{url}}/users/refresh_token
+Content-Type: application/json
+
+{
+  "refresh_token": {{refresh_token}}
+}
