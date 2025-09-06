@@ -1,5 +1,5 @@
 @url = http://localhost:8017/v1/dashboards
-@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRydW5ncXVhbmRldi1zYW1wbGUtaWQtMTIzNDU2NzgiLCJlbWFpbCI6InRydW5ncXVhbmRldi5vZmZpY2lhbEBnbWFpbC5jb20iLCJyb2xlIjoibW9kZXJhdG9yIiwiaWF0IjoxNzU3MDU0MjAxLCJleHAiOjE3NTcwNTc4MDF9.Rx1Y4eM7FfzmqyiyG7Y1KiGi5Q-CrK2YFb_8YBD3Mlc
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRydW5ncXVhbmRldi1zYW1wbGUtaWQtMTIzNDU2NzgiLCJlbWFpbCI6InRydW5ncXVhbmRldi5vZmZpY2lhbEBnbWFpbC5jb20iLCJyb2xlIjpbIm1vZGVyYXRvciJdLCJpYXQiOjE3NTcxMzg0MTcsImV4cCI6MTc1NzE0MjAxN30.-9afczWxcCipTZ3zKNyhATbruCpKHRAeD2anbMpM04M
 ### dashboard access
 GET {{url}}/access
 Content-Type: application/json
@@ -12,5 +12,10 @@ Authorization: Bearer {{access_token}}
 
 ### get /admin-tools
 GET {{url}}/admin-tools
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+### Get /support
+GET {{url}}/support
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
